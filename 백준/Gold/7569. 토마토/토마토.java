@@ -1,117 +1,88 @@
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.Scanner;
-
-class Point {
-	int r, c, h;
-
-	Point(int h, int r, int c) {
-
-		this.h = h;
-		this.r = r;
-		this.c = c;
-
-	}
-
-}
+import java.util.*;
 
 public class Main {
-	private static int M, N, H;
-	private static int[][][] map;
-	private static boolean[][][] visited;
-	private static Queue<Point> q = new ArrayDeque();
 
-	public static void main(String[] args) {
+    static class Coord{
+        int x;
+        int y;
+        int z;
 
-		Scanner sc = new Scanner(System.in);
-		int cnt = 0;
-		M = sc.nextInt();
-		N = sc.nextInt();
-		H = sc.nextInt();
+        Coord(int x, int y, int z){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
 
-		map = new int[H][N][M];
-		visited = new boolean[H][N][M];
+    }
 
-		for (int k = 0; k < H; k++) {
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < M; j++) {
-					map[k][i][j] = sc.nextInt();
-					if (map[k][i][j] == 1) {
-						q.offer(new Point(k, i, j));
-					} else if (map[k][i][j] == 0) {
-						cnt++;
-					}
-				}
-			}
+    static boolean checked(int x, int y, int z, int r, int c, int h){
+        return 0 <= x && x < r && 0 <=  y && y < c && 0<= z && z <h;
+    }
 
-			// 전부 1일때
+    public static void main(String[] args) {
 
-		}
+        Scanner sc = new Scanner(System.in);
 
-		if (cnt == 0) {
-			System.out.print(0);
-			return;
-		}
-		int re = bfs();
-		System.out.println(re);
+        int C = sc.nextInt();
+        int R = sc.nextInt();
+        int H = sc.nextInt();
 
-	}
+        int cnt = 0;
+        int day= 0;
 
-	public static int checkVisited() {
-		for (int k = 0; k < H; k++) {
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < M; j++) {
-					if (map[k][i][j] != -1 && visited[k][i][j] == false && map[k][i][j] == 0) {
-						return -1;
-					}
-				}
-			}
-		}
-		return 0;
-	}
+        sc.nextLine();
+        int map[][][] = new int[H][R][C];
+        boolean visited[][][] = new boolean[H][R][C];
 
-	public static int bfs() {
-		int[] xarr = { -1, 1, 0, 0 };
-		int[] yarr = { 0, 0, -1, 1 };
-		int[] harr = { -1, 1 };
-		int result = 0;
+        Queue<Coord> q = new ArrayDeque();
 
-		while (!q.isEmpty()) {
-			int size = q.size();
+        for(int h = 0; h < H; h++) {
+            for (int r = 0; r < R; r++) {
+                for (int c = 0; c < C; c++) {
+                    map[h][r][c] = sc.nextInt();
+                    if (map[h][r][c] == 1) {
+                        q.add(new Coord(r, c, h));
+                        visited[h][r][c] = true;
+                        cnt++;
+                    }
+                    if (map[h][r][c] == -1){
+                        cnt++;
+                    }
+                }
+            }
+        }
 
-			for (int s = 0; s < size; s++) {
-				Point p = q.poll();
-				visited[p.h][p.r][p.c] = true;
+        int[] dx = {-1,0,1,0,0,0};
+        int[] dy = {0,1,0,-1,0,0};
+        int[] dz = {0,0,0,0,1,-1};
 
-				for (int i = 0; i < 4; i++) {
-					// r : y / c : x
-					int y = p.r + yarr[i];
-					int x = p.c + xarr[i];
-					if (y >= 0 && y < N && x >= 0 && x < M && visited[p.h][y][x] == false && map[p.h][y][x] != -1) {
-						visited[p.h][y][x] = true;
-						map[p.h][y][x] = 1;
-						q.offer(new Point(p.h, y, x));
-					}
-				}
-				for (int i = 0; i < 2; i++) {
-					int h = p.h + harr[i];
-					if (h >= 0 && h < H && visited[h][p.r][p.c] == false && map[h][p.r][p.c] != -1) {
-						visited[h][p.r][p.c] = true;
-						map[h][p.r][p.c] = 1;
-						q.offer(new Point(h, p.r, p.c));
-					}
-				}
-			}
+        while(!q.isEmpty()){
+            Coord p = q.poll();
 
-			result++;
+            for(int i =0; i < dx.length; i++){
+                int nw_x = p.x + dx[i];
+                int nw_y = p.y + dy[i];
+                int nw_z = p.z + dz[i];
 
-		}
-		result -= 1;
-		if (checkVisited() == -1) {
-			return -1;
-		}
-		return result;
-	}
+                if(checked(nw_x, nw_y, nw_z, R, C, H) && map[nw_z][nw_x][nw_y] != -1){
+                    if(!visited[nw_z][nw_x][nw_y]){
+                        q.add(new Coord(nw_x, nw_y, nw_z));
+                        visited[nw_z][nw_x][nw_y] = true;
+                        map[nw_z][nw_x][nw_y] = map[p.z][p.x][p.y]+1;
+                        day = map[nw_z][nw_x][nw_y];
+                        cnt++;
+                    }else{
+                        map[nw_z][nw_x][nw_y] = Math.min(map[nw_z][nw_x][nw_y], map[p.z][p.x][p.y]+1);
+                    }
+
+                }
+            }
+
+        }
+
+        if(cnt != R*C*H) day = -1;
+        System.out.println(day <= 0 ? day : day-1);
+
+    }
 }
