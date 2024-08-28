@@ -5,7 +5,6 @@ import java.util.*;
 public class ABCDE {
 
 	static ArrayList<Integer>[] list;
-	static boolean[] v;
 	static boolean result = false;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -14,7 +13,8 @@ public class ABCDE {
 		int m = sc.nextInt();
 		
 		list = new ArrayList[n];
-		v = new boolean[n];
+		boolean[] v;
+		
 		
 		//list 초기화
 		for( int i = 0 ; i < n ; i++) {
@@ -30,11 +30,16 @@ public class ABCDE {
 		}
 		
 		
-		dfs(0 , 1);
+		for( int i = 0 ; i < n ; i++) {
+			v = new boolean[n];
+			v[i]=true;
+			dfs(i , 1 , v);
+			
+		}
 		
 		System.out.println(result ? 1 : 0);
 	}
-	private static void dfs(int idx, int cnt) {
+	private static void dfs(int idx, int cnt , boolean[] v) {
 		if( cnt ==5) {
 			result= true;
 			return;
@@ -43,9 +48,9 @@ public class ABCDE {
 		for( int i=0 ; i < list[idx].size();i++) {
 			int node = list[idx].get(i);
 			if( !v[node]) {
-				v[idx] = true;
-				dfs(node , cnt+1);
-				v[idx] = false;
+				v[node] = true;
+				dfs(node , cnt+1 , v);
+				v[node] = false;
 			}
 		}
 	}
