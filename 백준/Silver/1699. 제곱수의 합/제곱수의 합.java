@@ -13,13 +13,6 @@ public class Main {
 		dp[1]=1;
 		dp[2]=2;
 		dp[3]=3;
-//		dp[4]=1;
-//		dp[5]=2;
-//		dp[6]=3;
-//		dp[7]=4;
-//		dp[8]=1;
-//		dp[9]=1;
-//	
 
 		
 		for(int i = 4 ; i < n+1 ; i++) {
@@ -32,7 +25,6 @@ public class Main {
 				num++;
 				sum = (int)Math.pow(num, 2);
 			}
-//			System.out.println("dp["+i+"] :" + dp[i] );
 		}
 		
 		
