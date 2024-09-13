@@ -28,10 +28,8 @@ public class Main {
 		
 		long result = 0;
 		for(int i = 1 ; i < 11 ; i++) {
-//			result = (result + dp[n][i]) % 10007;
-			result += dp[n][i];
+			result = (result + dp[n][i]) % 10007;
 		}
-		result %= 10007;
 		System.out.println(result);
 		
 
