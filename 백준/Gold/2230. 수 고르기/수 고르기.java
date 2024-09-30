@@ -25,7 +25,7 @@ public class Main {
 			
 		}
 		
-		while(end < n && start < n) {
+		while(end < n && start <= end) {
 			long min = arr[end] - arr[start];
 			if(min<m) {
 				end++;
