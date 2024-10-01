@@ -17,7 +17,7 @@ public class Main {
 		int end = 0;
 		int answer = Integer.MAX_VALUE;
 		int prefixSum =arr[start];
-		while(end < n) {
+		while(end < n && start <= end) {
 			
 			if(prefixSum >= s) {
 				answer = Math.min(answer, end-start+1);
