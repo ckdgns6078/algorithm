@@ -49,10 +49,4 @@ public class Main {
 			sb.append(-1);
 		}
 	}
-
-	private static int findSmall() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
