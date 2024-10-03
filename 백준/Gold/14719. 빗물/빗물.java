@@ -18,11 +18,11 @@ public class Main {
 		for(int i = 1 ; i <= h ; i++) {
 			for(int j = 0 ; j < w ; j++) {
 				
-				if(!leftCheck && arr[j]>=i) {
-					leftCheck = true;
-				}
+//				if(!leftCheck && arr[j]>=i) {
+//					leftCheck = true;
+//				}
 				if(arr[j]<i) {
-					if(leftCheck && rightCheck(j , i)) {
+					if(leftCheck(j , i) && rightCheck(j , i)) {
 						arr[j]++;
 						answer++;
 					}	
