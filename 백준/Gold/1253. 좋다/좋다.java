@@ -31,34 +31,18 @@ public class Main {
 				}
 
 				long sum = arr[left] + arr[right];
-				
-//				if(sum > arr[i]) {
-//					right--;
-//				}else if(sum < arr[i]) {
-//					left++;
-//				}else {
-//					result++;
-//					break;
-//				}
-				//----------------
-				
 				if (sum == target) {
 					result++;
 					break;
 				}
-
-				if (sum < arr[i]) {
+				if (sum < target) {
 					left++;
 				} else {
 					right--;
 				}
-
 			}
-
 		}
-
 		System.out.println(result);
-
 	}
 
 }
