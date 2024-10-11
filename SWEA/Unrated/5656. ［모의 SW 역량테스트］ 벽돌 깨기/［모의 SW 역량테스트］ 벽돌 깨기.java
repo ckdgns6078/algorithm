@@ -12,7 +12,6 @@ public class Solution {
 	static int[] dr = { -1, 1, 0, 0 };
 	static int[] dc = { 0, 0, -1, 1 };
 	static int result;
-
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
@@ -23,47 +22,41 @@ public class Solution {
 			h = sc.nextInt();
 			map = new int[h][w];
 			copyMap = new int[h][w];
-			int cnt = 0;
 			permutations = new ArrayList();
 			result = Integer.MAX_VALUE;
 			for (int i = 0; i < h; i++) {
 				for (int j = 0; j < w; j++) {
-					if (map[i][j] > 0) {
-						cnt++;
-					}
 					map[i][j] = sc.nextInt();
 					copyMap[i][j] = map[i][j];
 				}
 			}
-
-			if (cnt == h * w) {
-				System.out.println("#" + tc + " " + 0);
-			} else {
-				permutation(0, new int[n]);
-				for (int i = 0; i < permutations.size(); i++) {
-					for (int j = 0; j < n; j++) {
-						shootBall(permutations.get(i)[j]);
-						moveWall();
-					}
-					result = Math.min(result, findMin());
-					updateMap();
+			
+			permutation(0, new int[n]);
+			L : for (int i = 0; i < permutations.size(); i++) {
+				for (int j = 0; j < n; j++) {
+					shootBall(permutations.get(i)[j]);
+					moveWall();
 				}
-
-				System.out.println("#" + tc + " " + result);
-
+				result = Math.min(result , findMin());
+				if(result ==0) {
+					break L ;
+				}
+				updateMap();
 			}
+
+			System.out.println("#" + tc +" " + result);
 		}
 
 	}
 
 	private static int findMin() {
 		int sum = 0;
-		for (int i = 0; i < h; i++) {
-			for (int j = 0; j < w; j++) {
-				if (copyMap[i][j] > 0) {
+		for(int i = 0 ; i < h ; i++) {
+			for(int j = 0 ; j < w ;j++) {
+				if(copyMap[i][j]>0) {
 					sum++;
 				}
-				if (sum > result) {
+				if(sum>result) {
 					return sum;
 				}
 			}
@@ -79,7 +72,7 @@ public class Solution {
 		int r = 0;
 		while (r < h) {
 			if (copyMap[r][c] > 0) {
-				q.add(new int[] { r, c, copyMap[r][c] });
+				q.add(new int[] { r, c  , copyMap[r][c]});
 				break;
 			}
 			r++;
@@ -90,32 +83,33 @@ public class Solution {
 			int pc = point[1];
 			int size = point[2];
 			copyMap[pr][pc] = 0;
+			
+			for(int i = 0 ; i <  4 ; i++) {
 
-			for (int i = 0; i < 4; i++) {
-
-				for (int j = 1; j < size; j++) {
-					int nr = pr + dr[i] * j;
-					int nc = pc + dc[i] * j;
-
-					if (nr >= 0 && nr < h && nc >= 0 && nc < w) {
-						if (copyMap[nr][nc] > 0) {
-							q.offer(new int[] { nr, nc, copyMap[nr][nc] });
+				for(int j =1 ; j < size ; j++) {
+					int nr = pr + dr[i]*j;
+					int nc = pc + dc[i]*j;
+					
+					if(nr>=0 && nr < h && nc >=0 && nc < w) {
+						if(copyMap[nr][nc]>0) {
+							q.offer(new int[] {nr , nc , copyMap[nr][nc]});
 							copyMap[nr][nc] = 0;
 						}
-					} else {
+					}else {
 						break;
 					}
-
+					
 				}
 			}
 		}
 	}
-
+	
 	private static void updateMap() {
-		for (int i = 0; i < h; i++) {
+		for(int i = 0 ; i < h ; i++) {
 			copyMap[i] = map[i].clone();
 		}
 	}
+	
 
 	// 구슬을 쏘고 움직이는 함수
 	private static void moveWall() {
@@ -131,7 +125,7 @@ public class Solution {
 			for (int j = h - 1; j >= 0; j--) {
 				if (copyMap[j][i] > 0) {
 					int temp = 0;
-					for (int k = j + 1; k < h; k++) {
+					for (int k = j+1; k < h; k++) {
 						if (copyMap[k][i] > 0) {
 							break;
 						}
