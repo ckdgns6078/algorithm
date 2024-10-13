@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 
 class Vertex2 implements Comparable<Vertex2>{
