@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 class Point implements Comparable<Point>{
