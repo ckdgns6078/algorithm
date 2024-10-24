@@ -9,32 +9,36 @@ class Trie {
         lastNode = false;
     }
 
-    public boolean insert(String str) {
+    public void insert(String str) {
         Trie node = this;
-        boolean isNew = false;
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            node.map.putIfAbsent(c, new Trie());
+            node = node.map.get(c);
+        }
+        node.lastNode = true;
+    }
+
+    // 주어진 문자열이 다른 번호의 접두어인지 확인
+    public boolean search(String str) {
+        Trie node = this;
 
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
 
             if (!node.map.containsKey(c)) {
-                isNew = true;
-                node.map.put(c, new Trie());
+                return false;
             }
             node = node.map.get(c);
 
-            // 다른 번호가 현재 번호의 접두어인 경우
-            if (node.lastNode) {
-                return false;
+            // 탐색 도중 다른 번호의 끝이 발견되면 접두어임
+            if (node.lastNode && i != str.length() - 1) {
+                return true;
             }
         }
-
-        // 이미 해당 문자열이 접두어인 경우
-        if (!isNew) {
-            return false;
-        }
-
-        node.lastNode = true;
-        return true;
+        return false;
     }
 }
 
@@ -49,23 +53,24 @@ public class Main {
 
             int n = sc.nextInt();
             String[] inputList = new String[n];
-            boolean consistent = true;
 
             for (int i = 0; i < n; i++) {
                 inputList[i] = sc.next();
+                trie.insert(inputList[i]);  // 모든 번호를 트라이에 삽입
             }
 
+            boolean check = true;
             for (int i = 0; i < n; i++) {
-                if (!trie.insert(inputList[i])) {
-                    consistent = false;
+                if (trie.search(inputList[i])) {
+                    check = false;
                     break;
                 }
             }
 
-            if (consistent) {
-                System.out.println("YES");
-            } else {
+            if (!check) {
                 System.out.println("NO");
+            } else {
+                System.out.println("YES");
             }
         }
         sc.close();
