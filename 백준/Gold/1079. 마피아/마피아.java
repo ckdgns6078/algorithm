@@ -31,7 +31,6 @@ public class Main {
 	public static void recursive2(int turn , int[] gameList , int result) {
 		if(mafiaCheck(gameList) || citizenCheck(gameList)) {
 			answer = Math.max(answer , result);
-//			System.out.println("종료 : " +Arrays.toString(gameList));
 			return;
 		}
 		
@@ -47,9 +46,7 @@ public class Main {
 							gameList[j] = map[i][j];
 						}
 					}
-//					System.out.println("mafia");
 					recursive(turn-1 , gameList , result +1);
-					//마피아를 살린다 , 변경한 값을 다시 원래 상태로 되돌린다.
 					for(int j=0;j<n;j++) {
 						gameList[i] = tempList[i];
 					}
@@ -70,26 +67,17 @@ public class Main {
 			}
 			int temp = gameList[cnt];
 			gameList[cnt] = 888;
-//			System.out.println("시민 : "  +Arrays.toString(gameList));
-//			System.out.println("시민이 죽인 값 : " + cnt);
 			recursive(turn -1 , gameList , result);
 			gameList[cnt] = temp; 
 		}
-		
-		
-		
-		
 	}
 
-	
 	public static void recursive(int turn, int[] gameList, int result) {
 		if (mafiaCheck(gameList) || citizenCheck(gameList)) {
 			answer = Math.max(answer, result);
-//			System.out.println("종료 : " +Arrays.toString(gameList));
 			return;
 		}
 
-		
 		if (turn % 2 == 0) {  // 밤 (은진이의 차례)
 			for (int i = 0; i < n; i++) {
 				if (gameList[i] != 888 && i != position) {
@@ -114,8 +102,6 @@ public class Main {
 			}
 			int temp = gameList[cnt];
 			gameList[cnt] = 888;
-//			System.out.println("시민 : "  +Arrays.toString(gameList));
-//			System.out.println("시민이 죽인 값 : " + cnt);
 			recursive(turn -1 , gameList , result);
 			gameList[cnt] = temp; 
 		}
