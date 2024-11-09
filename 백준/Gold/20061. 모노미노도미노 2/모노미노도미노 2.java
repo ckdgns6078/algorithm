@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Main {
@@ -26,14 +25,10 @@ public class Main {
 
 		for (int i = 0; i < n; i++) {
 			move(order[i]);
-//			printArr();
-//			System.out.println("==========================");
 			breakBluck();
 			moveStep();
 			specialBluck();
 			moveStep();
-//			printArr();
-//			System.out.println("====================");
 		}
 		System.out.println(score);
 		System.out.println(countBluck());
@@ -130,8 +125,8 @@ public class Main {
 			}
 			if (cnt == 4) {
 				score++;
-				for(int k=0;k<4;k++) {
-					map[k][i]=0;
+				for (int k = 0; k < 4; k++) {
+					map[k][i] = 0;
 				}
 				blueQueue.offer(i);
 			}
