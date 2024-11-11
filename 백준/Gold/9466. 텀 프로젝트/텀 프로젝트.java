@@ -7,7 +7,6 @@ public class Main {
 	static boolean[] team;
 	static int answer;
 
-//	static ArrayList<Integer> list = new ArrayList();
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
 		StringBuilder sb = new StringBuilder();
