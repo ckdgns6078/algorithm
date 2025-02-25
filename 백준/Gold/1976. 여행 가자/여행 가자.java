@@ -42,10 +42,7 @@ public class Main {
 				break;
 			}
 		}
-		
 		System.out.println(temp == true ? "YES" : "NO");
-		
-		
 	}
 	
 	public static int find(int x) {
