@@ -33,7 +33,7 @@ public class Main {
         }
 
         dp[1][1] = 0;
-
+        int answer = 0;
         for (int i = 1; i <= M; i++) {
             for (int j = 1; j <= N; j++) {
                 dp[i][j] = Math.max(dp[i][j], dp[i - 1][j]);
@@ -50,12 +50,9 @@ public class Main {
                     }
                 }
             }
-        }
-
-        int answer = 0;
-        for (int i = 2; i <= M; i++) {
             answer = Math.max(answer, dp[i][N]);
         }
+
 
         System.out.println(answer);
     }
