@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Main {
@@ -67,10 +66,5 @@ public class Main {
 		sel[k] = idx;
 		combination(idx+1 , k+1 , sel);
 		combination(idx+1 , k , sel);
-		
 	}
-	
-	
-	
-	
 }
