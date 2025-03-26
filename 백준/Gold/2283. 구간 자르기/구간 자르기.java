@@ -22,17 +22,14 @@ public class Main {
 			maxCoord = Math.max(maxCoord, right);
 		}
 
-		// 누적합: cnt[i] → i번째 좌표에 걸쳐 있는 구간 수
 		for (int i = 1; i <= maxCoord; i++) {
 			cnt[i] += cnt[i - 1];
 		}
 
-		// 누적합: sum[i] → 0부터 i까지의 총 포함된 길이
 		for (int i = 1; i <= maxCoord; i++) {
 			sum[i] = sum[i - 1] + cnt[i];
 		}
 
-		// 투 포인터
 		int left = 0, right = 1;
 		boolean found = false;
 		int ansLeft = 0, ansRight = 0;
