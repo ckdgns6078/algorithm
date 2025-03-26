@@ -29,24 +29,27 @@ public class Main {
 		int bb = r.b;
 		int size = pq.size();
 
-		for (int i = 0; i < size; i++) {
-			r = pq.poll();
-			temp++;
-			if (bg != r.g || bs != r.s || bb != r.b) {
-				cnt = temp;
+		if (r.idx == M) {
+			System.out.println(cnt);
+		} else {
+			for (int i = 0; i < size; i++) {
+				r = pq.poll();
+				temp++;
+				if (bg != r.g || bs != r.s || bb != r.b) {
+					cnt = temp;
+					bg = r.g;
+					bs = r.s;
+					bb = r.b;
+				}
+				/**
+				 * 값이 4개와 같으면 같은 cnt 다르면 temp로 변경하고 cnt를 temp로 변경 bg bs bb 를 수정한다.
+				 */
+				if (r.idx == M) {
+					break;
+				}
 			}
-			bg = r.g;
-			bs = r.s;
-			bb = r.b;
-			/**
-			 * 값이 4개와 같으면 같은 cnt 다르면 temp로 변경하고 cnt를 temp로 변경 bg bs bb 를 수정한다.
-			 */
-			if (r.idx == M) {
-
-				break;
-			}
+			System.out.println(cnt);
 		}
-		System.out.println(cnt);
 
 	}
 
@@ -66,12 +69,12 @@ public class Main {
 		@Override
 		public int compareTo(Raiting o) {
 			if (this.g != o.g) {
-				return Integer.compare(this.g, o.g);
+				return Integer.compare(o.g , this.g);
 			}
 			if (this.s != o.s) {
-				return Integer.compare(this.s, o.s);
+				return Integer.compare(o.s , this.s);
 			}
-			return Integer.compare(this.b, o.b);
+			return Integer.compare(o.b , this.b);
 
 		}
 
