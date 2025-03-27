@@ -4,22 +4,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		StringBuilder sb = new StringBuilder();
 		while (true) {
 			String input = sc.next();
 			boolean answerCheck = true;
 			if (input.equals("end")) {
 				break;
 			}
-			sb.append("<").append(input).append(">");
+            
 			if (!aeiou(input) || !doubleCheck(input) || !slidingWindow(input)) {
-				sb.append(" is not acceptable.");
+				System.out.println("<" + input + ">" + " is not acceptable.");
+                
 			} else {
-				sb.append(" is acceptable.");
+                System.out.println("<" + input + ">" + " is acceptable.");
 			}
-			sb.append("\n");
 		}
-		System.out.println(sb);
 	}
 
 	public static boolean doubleCheck(String str) {
