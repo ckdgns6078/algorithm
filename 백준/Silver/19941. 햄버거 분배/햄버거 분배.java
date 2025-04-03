@@ -44,7 +44,6 @@ public class Main {
 					answer++;
 					frontCheck = true;
 				}
-
 				// 뒤체크
 				if (!frontCheck) {
 					for (int j = i; j <= i + K; j++) {
@@ -56,14 +55,10 @@ public class Main {
 							arr[j] = 9;
 							break;
 						}
-
 					}
-
 				}
-
 			}
 		}
-//		System.out.println(Arrays.toString(arr));
 		System.out.println(answer);
 	}
 }
