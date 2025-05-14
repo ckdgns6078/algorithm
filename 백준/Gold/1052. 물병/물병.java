@@ -1,40 +1,19 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
 
-	static int N;
-	static int K;
-	static int answer =0;
-	
-	public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
-		
-		N = sc.nextInt();
-		K = sc.nextInt();
-		
-		while(true) {
-			
-			String binary = Integer.toBinaryString(N);
-			
-			int left = 0;
-			for(int i=0;i<binary.length();i++) {
-				char c = binary.charAt(i);
-				if(c =='1') {
-					left++;
-				}
-				if(left>K) {
-					break;
-				}
-			}
-			
-			
-			if(left <=K) {
-				break;
-			}
-			N++;
-			answer++;
-		}
-		
-		System.out.println(answer);
-	}
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt(); // 현재 물병 수
+        int K = sc.nextInt(); // 옮길 수 있는 병 수 제한
+        int answer = 0;
+
+        while (Integer.bitCount(N) > K) {
+            N++;         // 병 하나 더 삼
+            answer++;    // 추가 병 개수 증가
+        }
+
+        System.out.println(answer);
+    }
 }
